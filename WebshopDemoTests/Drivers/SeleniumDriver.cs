@@ -12,7 +12,7 @@ namespace WebshopDemoTests.Drivers
         private readonly Lazy<IWebDriver> _currentWebDriverLazy;
         private bool _isDisposed;
         private readonly WebDriverWait _wait;
-        public const int DefaultWaitInSeconds = 5;
+        public const int DefaultWaitInSeconds = 10;
 
         public SeleniumDriver()
         {

@@ -29,11 +29,11 @@ namespace WebshopDemoTests.Steps
             _mainPage.SearchText(name);
         }
 
-        [Then(@"item is shown")]
-        public void ThenItemIsShown()
+        [Then(@"item is shown (.*)")]
+        public void ThenItemIsShown(string name)
         {
             _itemPage = _mainPage.SelectItem();
-            _itemPage.VerifyItemName();
+            _itemPage.VerifyItemName(name);
         }
 
         [When(@"User clicks on the button 'Add to bag'")]

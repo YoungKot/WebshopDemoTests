@@ -14,6 +14,7 @@ namespace WebshopDemoTests.Steps
         private readonly MainPage _mainPage;
         private LadiesPage _ladiesPage;
         private ItemPage _itemPage;
+        private BagPage _bagePage;
 
         public FilterStepDefinitions(SeleniumDriver driver)
         {
@@ -61,6 +62,33 @@ namespace WebshopDemoTests.Steps
         {
             _itemPage.VerifyCheckBoxIsChecked();
         }
+
+        [When(@"the user selects an item")]
+        public void WhenTheUserSelectsAnItem()
+        {
+            _itemPage.SelectProduct();
+        }
+
+        [Then(@"the item is shown (.*)")]
+        public void ThenTheItemIsShown(string name)
+        {
+            _itemPage.VerifyItemName(name);
+        }
+
+        [When(@"the user adds an item to a cart")]
+        public void WhenTheUserAddsAnItemToACart()
+        {
+            _itemPage.SelectSize();
+            _itemPage.AddToBag();
+        }
+
+        [Then(@"the item is added")]
+        public void ThenTheItemIsAdded()
+        {
+            _bagePage = _itemPage.ViewBag();
+            _bagePage.VerifyItemAmount();
+        }
+
 
     }
 }

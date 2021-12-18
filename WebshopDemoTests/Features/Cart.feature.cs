@@ -116,7 +116,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When(string.Format("User types {0} in the searchbar", item), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then("item is shown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("item is shown {0}", item), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
  testRunner.When("User clicks on the button \'Add to bag\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
