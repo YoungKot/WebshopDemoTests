@@ -20,7 +20,6 @@ namespace WebshopDemoTests.Pages
         }
 
         private IWebElement ItemType => _driver.FindElement(By.XPath("//div[@id='collapse2_dsk']//a[normalize-space()='leggings']"));
-        private IWebElement PageName => _driver.FindElement(By.XPath("//h1[normalize-space()='Ladies']"));
 
         public ItemPage SelectItemType()
         {
@@ -31,8 +30,7 @@ namespace WebshopDemoTests.Pages
 
         public void IsOnLadiesPage()
         {
-            _wait.Until(pred => PageName.Displayed);
-            Assert.AreEqual("Ladies", PageName.Text);
+            Assert.IsTrue(_driver.Url.Contains("ladies"));
         }
     }
 }

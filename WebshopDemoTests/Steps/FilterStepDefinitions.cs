@@ -12,14 +12,12 @@ namespace WebshopDemoTests.Steps
     public sealed class FilterStepDefinitions
     {
         private readonly MainPage _mainPage;
-        private readonly LadiesPage _ladiesPage;
-        private readonly ItemPage _itemPage;
+        private LadiesPage _ladiesPage;
+        private ItemPage _itemPage;
 
         public FilterStepDefinitions(SeleniumDriver driver)
         {
             _mainPage = new MainPage(driver.Current, driver.Wait);
-            _ladiesPage = new LadiesPage(driver.Current, driver.Wait);
-            _itemPage = new ItemPage(driver.Current, driver.Wait);
         }
 
         [Given(@"The user is on the main page")]
@@ -31,7 +29,7 @@ namespace WebshopDemoTests.Steps
         [When(@"the user clicks on 'Womens'")]
         public void WhenTheUserClicksOn()
         {
-            _mainPage.GetToLadiesPage();
+            _ladiesPage = _mainPage.GetToLadiesPage();
         }
 
         [Then(@"the page for ladies is shown")]
@@ -43,7 +41,7 @@ namespace WebshopDemoTests.Steps
         [When(@"the user selects leggings")]
         public void WhenTheUsserSelectsLeggings()
         {
-            _ladiesPage.SelectItemType();
+            _itemPage = _ladiesPage.SelectItemType();
         }
 
         [Then(@"the legging page is shown")]

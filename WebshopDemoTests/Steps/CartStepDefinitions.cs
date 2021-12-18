@@ -15,8 +15,6 @@ namespace WebshopDemoTests.Steps
         public CartStepDefinitions(SeleniumDriver driver)
         {
             _mainPage = new MainPage(driver.Current, driver.Wait);
-            _itemPage = new ItemPage(driver.Current, driver.Wait);
-            _bagPage = new BagPage(driver.Current, driver.Wait);
         }
 
         [Given(@"User is on the main page")]
@@ -34,7 +32,7 @@ namespace WebshopDemoTests.Steps
         [Then(@"item is shown")]
         public void ThenItemIsShown()
         {
-            _mainPage.SelectItem();
+            _itemPage = _mainPage.SelectItem();
             _itemPage.VerifyItemName();
         }
 

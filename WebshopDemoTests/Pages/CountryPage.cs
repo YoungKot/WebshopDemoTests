@@ -16,6 +16,7 @@ namespace WebshopDemoTests.Pages
         private readonly WebDriverWait _wait;
 
         private readonly Actions actions;
+
         public CountryPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
