@@ -2,9 +2,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace WebshopDemoTests.Pages
 {
@@ -65,6 +67,7 @@ namespace WebshopDemoTests.Pages
             _wait.Until(pred => BrandCheckBox.Displayed);
             BrandCheckBox.Click();
             _wait.Until(pred => BrandCheckBox.Enabled);
+            Thread.Sleep(3000);
         }
 
         public void VerifyCheckBoxIsChecked()
