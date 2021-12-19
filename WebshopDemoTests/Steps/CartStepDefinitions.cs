@@ -26,13 +26,13 @@ namespace WebshopDemoTests.Steps
         [When(@"User types (.*) in the searchbar")]
         public void WhenUserTypesInTheSearchbar(string name)
         {
-            _mainPage.SearchText(name);
+            _itemPage = _mainPage.SearchText(name);
+            _itemPage.SelectProduct();
         }
 
         [Then(@"item is shown (.*)")]
         public void ThenItemIsShown(string name)
         {
-            _itemPage = _mainPage.SelectItem();
             _itemPage.SelectSize();
             _itemPage.VerifyItemName(name);
 
