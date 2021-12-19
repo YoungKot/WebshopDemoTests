@@ -40,7 +40,7 @@ namespace WebshopDemoTests.Pages
         [FindsBy(How = How.XPath, Using = "//li[1]//div[1]//div[1]//div[2]//div[1]//div[1]//a[1]//span[2]//span[1]")]
         public IWebElement Item;
         
-        [FindsBy(How = How.XPath, Using = "//body/div[@id='BodyWrap']/div[1]/div[1]/div[1]/div[1]/div[3]/section[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[3]/div[3]/div[1]/div[1]/div[2]/ul[1]/li[1]/a[1]")]
+        [FindsBy(How = How.XPath, Using = "//div[@id='productVariantAndPrice']//li[1]//a[1]")]
         public IWebElement Size;
 
         public void VerifyItemName(string name)
