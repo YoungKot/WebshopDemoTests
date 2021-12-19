@@ -74,10 +74,10 @@ namespace WebshopDemoTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Search for female underwear")]
+        [NUnit.Framework.DescriptionAttribute("Search for leggings")]
         [NUnit.Framework.CategoryAttribute("SearchByBrand")]
         [NUnit.Framework.TestCaseAttribute("3 Stripe Legging", null)]
-        public virtual void SearchForFemaleUnderwear(string item, string[] exampleTags)
+        public virtual void SearchForLeggings(string item, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "SearchByBrand"};
@@ -88,7 +88,7 @@ namespace WebshopDemoTests.Features
             string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("Item", item);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search for female underwear", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Search for leggings", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

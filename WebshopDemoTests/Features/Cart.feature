@@ -9,4 +9,4 @@ Scenario: Search for an item
 	Then item is added
 	Examples: 
 	| Item   |
-	| Bubble Mid Puffer Jacket |
+	| Dri-FIT Sport Clash Men's Woven Hooded Training Jacket |

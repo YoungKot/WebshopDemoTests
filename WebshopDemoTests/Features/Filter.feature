@@ -1,7 +1,7 @@
 ﻿Feature: Filter
 
 @SearchByBrand
-Scenario: Search for female underwear
+Scenario: Search for leggings
 	Given The user is on the main page
 	When the user clicks on 'Womens'
 	Then the page for ladies is shown

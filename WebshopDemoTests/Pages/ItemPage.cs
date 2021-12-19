@@ -88,9 +88,9 @@ namespace WebshopDemoTests.Pages
         }
 
         public void SelectSize()
-        {
+        {         
             _wait.Until(pred => Size.Displayed);
-            Size.Click();
+            Size.Click();       
         }
     }
 }

@@ -76,7 +76,7 @@ namespace WebshopDemoTests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Search for an item")]
         [NUnit.Framework.CategoryAttribute("AddToBag")]
-        [NUnit.Framework.TestCaseAttribute("Bubble Mid Puffer Jacket", null)]
+        [NUnit.Framework.TestCaseAttribute("Dri-FIT Sport Clash Men\'s Woven Hooded Training Jacket", null)]
         public virtual void SearchForAnItem(string item, string[] exampleTags)
         {
             string[] @__tags = new string[] {
