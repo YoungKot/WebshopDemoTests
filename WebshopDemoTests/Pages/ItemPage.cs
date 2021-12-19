@@ -25,7 +25,7 @@ namespace WebshopDemoTests.Pages
         [FindsBy(How = How.XPath, Using = "//span[@id='lblProductName']")]
         public IWebElement ProductName;
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Add to bag')]")]
+        [FindsBy(How = How.XPath, Using = "//span[@class='addToBagInner']")]
         public IWebElement BtnAddToBag;
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'View Bag')]")]
