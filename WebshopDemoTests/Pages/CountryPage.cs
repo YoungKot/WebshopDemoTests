@@ -21,7 +21,7 @@ namespace WebshopDemoTests.Pages
         {
             _driver = driver;
             _wait = wait;
-            actions = new Actions(driver);
+            actions = new Actions(_driver);
             PageFactory.InitElements(_driver, this);
         }
 
