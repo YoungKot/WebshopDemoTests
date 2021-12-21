@@ -22,7 +22,7 @@ namespace WebshopDemoTests.Pages
 
         private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@id='txtSearch']"));
 
-        private IWebElement Category => _driver.FindElement(By.XPath("//a[@id='lnkTopLevelMenu_2347182']"));
+        private IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
 
         public void OpenWebpage()
         {
