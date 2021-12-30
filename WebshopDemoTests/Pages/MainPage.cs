@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,13 @@ namespace WebshopDemoTests.Pages
 
         private readonly WebDriverWait _wait;
 
+        private Actions actions;
+
         public MainPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
+            actions = new Actions(_driver);
         }
 
         private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@id='txtSearch']"));
@@ -31,7 +35,8 @@ namespace WebshopDemoTests.Pages
 
         public ItemPage SearchText(string name)
         {
-            _wait.Until(pred => SearchBox.Enabled);
+            //_wait.Until(pred => SearchBox.Enabled);
+            actions.MoveToElement(SearchBox).Click().Perform();
             SearchBox.SendKeys(name);
             SearchBox.SendKeys(Keys.Enter);
             return new ItemPage(_driver, _wait);
