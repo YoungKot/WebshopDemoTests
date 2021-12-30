@@ -35,9 +35,8 @@ namespace WebshopDemoTests.Pages
         }
 
         public void ScrollDown()
-        {   
-            actions.MoveToElement(Country);
-            actions.Perform();
+        {
+            actions.MoveToElement(Country).Perform();
         }
     }
 }
