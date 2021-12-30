@@ -31,7 +31,7 @@ namespace WebshopDemoTests.Pages
 
         public ItemPage SearchText(string name)
         {
-            _wait.Until(pred => SearchBox.Displayed);
+            _wait.Until(pred => SearchBox.Enabled);
             SearchBox.SendKeys(name);
             SearchBox.SendKeys(Keys.Enter);
             return new ItemPage(_driver, _wait);
