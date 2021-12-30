@@ -1,6 +1,5 @@
-# bin and obj directory
-bin/
-obj/
-
-# ignore any files with .obj postfix
-*.obj
+*.suo
+*.user
+bin
+obj
+packages
