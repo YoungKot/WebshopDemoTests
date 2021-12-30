@@ -6,7 +6,6 @@ using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
 
 namespace WebshopDemoTests.Pages
 {
@@ -51,7 +50,7 @@ namespace WebshopDemoTests.Pages
 
         public void AddToBag()
         {
-            _wait.Until(pred => BtnAddToBag.Displayed);
+            _wait.Until(pred => BtnAddToBag.Enabled);
             BtnAddToBag.Click();
         }
 
@@ -64,10 +63,9 @@ namespace WebshopDemoTests.Pages
 
         public void FilterItems()
         {
-            _wait.Until(pred => BrandCheckBox.Displayed);
-            BrandCheckBox.Click();
             _wait.Until(pred => BrandCheckBox.Enabled);
-            Thread.Sleep(3000);
+            BrandCheckBox.Click();
+            _wait.Until(pred => BrandCheckBox.Displayed);
         }
 
         public void VerifyCheckBoxIsChecked()
@@ -83,13 +81,13 @@ namespace WebshopDemoTests.Pages
 
         public void SelectProduct()
         {
-            _wait.Until(pred => Item.Displayed);
+            _wait.Until(pred => Item.Enabled);
             Item.Click();
         }
 
         public void SelectSize()
         {         
-            _wait.Until(pred => Size.Displayed);
+            _wait.Until(pred => Size.Enabled);
             Size.Click();       
         }
     }
