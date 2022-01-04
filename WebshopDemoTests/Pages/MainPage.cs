@@ -21,7 +21,7 @@ namespace WebshopDemoTests.Pages
             _wait = wait;
         }
 
-        private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@id='txtSearch']"));
+        private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@type='search']"));
 
         private IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
 

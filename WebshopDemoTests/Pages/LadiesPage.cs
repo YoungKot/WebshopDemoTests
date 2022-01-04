@@ -19,7 +19,7 @@ namespace WebshopDemoTests.Pages
             _wait = wait;
         }
 
-        private IWebElement ItemType => _driver.FindElement(By.XPath("//div[@id='collapse2_dsk']//a[normalize-space()='leggings']"));
+        private IWebElement ItemType => _driver.FindElement(By.LinkText("Leggings"));
 
         public ItemPage SelectItemType()
         {

@@ -30,16 +30,16 @@ namespace WebshopDemoTests.Pages
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'View Bag')]")]
         public IWebElement BtnViewBag;
 
-        [FindsBy(How = How.XPath, Using = "//span[@class='FilterName'][normalize-space()='adidas']")]
+        [FindsBy(How = How.XPath, Using = "//span[@data-filtername='adidas']")]
         public IWebElement BrandCheckBox;
 
         [FindsBy(How = How.XPath, Using = "//span[@id='lblCategoryHeader']")]
         public IWebElement PageName;
 
-        [FindsBy(How = How.XPath, Using = "//li[1]//div[1]//div[1]//div[2]//div[1]//div[1]//a[1]//span[2]//span[1]")]
+        [FindsBy(How = How.XPath, Using = "//div[@id='productlistcontainer']/ul/li[1]")]
         public IWebElement Item;
         
-        [FindsBy(How = How.XPath, Using = "//div[@id='productVariantAndPrice']//li[1]//a[1]")]
+        [FindsBy(How = How.XPath, Using = "//ul[@class='row sizeButtons']/li[1]")]
         public IWebElement Size;
 
         public void VerifyItemName(string name)
@@ -63,9 +63,9 @@ namespace WebshopDemoTests.Pages
 
         public void FilterItems()
         {
-            _wait.Until(pred => BrandCheckBox.Enabled);
-            BrandCheckBox.Click();
             _wait.Until(pred => BrandCheckBox.Displayed);
+            BrandCheckBox.Click();
+            _wait.Until(pred => BrandCheckBox.Enabled);
         }
 
         public void VerifyCheckBoxIsChecked()
@@ -81,7 +81,7 @@ namespace WebshopDemoTests.Pages
 
         public void SelectProduct()
         {
-            _wait.Until(pred => Item.Enabled);
+            _wait.Until(pred => Item.Displayed);
             Item.Click();
         }
 
