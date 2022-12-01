@@ -8,7 +8,6 @@ namespace WebshopDemoTests.Steps
     [Binding]
     public sealed class CountryStepDefinitions
     {
-
         private readonly MainPage _mainPage;
         private CountryPage _countryPage;
 
