@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
@@ -10,8 +11,8 @@ namespace WebshopDemoTests.Steps
     public sealed class CartStepDefinitions
     {
         private readonly MainPage _mainPage;
-        private ItemPage _itemPage;
-        private BagPage _bagPage;
+        private ItemPage? _itemPage;
+        private BagPage? _bagPage;
         public CartStepDefinitions(SeleniumDriver driver)
         {
             _mainPage = new MainPage(driver.Current, driver.Wait);
@@ -33,25 +34,26 @@ namespace WebshopDemoTests.Steps
         [Then(@"item is shown (.*)")]
         public void ThenItemIsShown(string name)
         {
-            _itemPage.SelectSize();
-            _itemPage.VerifyItemName(name);
+            _itemPage!.SelectSize();
+            Assert.AreEqual(name, _itemPage.GetProductName());
 
         }
 
         [When(@"User clicks on the button 'Add to bag'")]
         public void WhenUserClicksOnTheButton()
         {
-            _itemPage.AddToBag();
+            _itemPage!.AddToBag();
         }
 
         [Then(@"item is added")]
         public void ThenItemIsAdded()
         {
-            _bagPage = _itemPage.ViewBag();
-            _bagPage.VerifyItemAmount();
+            _itemPage!.VerifyButtonViewBagEnabled();
+            _bagPage = _itemPage!.ViewBag();
+            Assert.IsTrue(_itemPage!.VerifyBrandCheckBoxEnabled());
+            _bagPage.VerifyItemAmountDisplayed();
+            Assert.AreEqual("1 item", _bagPage.GetItemCount());
         }
-
-
 
     }
 }

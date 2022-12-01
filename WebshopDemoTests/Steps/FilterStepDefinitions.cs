@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
+using WebshopDemoTests.Helpers;
 using WebshopDemoTests.Pages;
 
 namespace WebshopDemoTests.Steps
@@ -12,9 +10,9 @@ namespace WebshopDemoTests.Steps
     public sealed class FilterStepDefinitions
     {
         private readonly MainPage _mainPage;
-        private LadiesPage _ladiesPage;
-        private ItemPage _itemPage;
-        private BagPage _bagePage;
+        private LadiesPage? _ladiesPage;
+        private ItemPage? _itemPage;
+        private BagPage? _bagPage;
 
         public FilterStepDefinitions(SeleniumDriver driver)
         {
@@ -36,57 +34,58 @@ namespace WebshopDemoTests.Steps
         [Then(@"the page for ladies is shown")]
         public void ThenThePageForLadiesIsShown()
         {
-            _ladiesPage.IsOnLadiesPage();
+            Assert.IsTrue(_ladiesPage!.IsOnLadiesPage());
         }
 
         [When(@"the user selects leggings")]
         public void WhenTheUsserSelectsLeggings()
         {
-            _itemPage = _ladiesPage.SelectItemType();
+            _itemPage = _ladiesPage!.SelectItemType();
         }
 
         [Then(@"the legging page is shown")]
         public void ThenTheLeggingPageIsShown()
         {
-            _itemPage.VerifyPageName();
+            _itemPage!.VerifyPageNameDisplayed();
+            Assert.AreEqual("TIGHTS AND LEGGINGS", _itemPage.GetPageName());
         }
 
         [When(@"the user selects adidas brand")]
         public void WhenTheUserSelectsBarndAdidas()
         {
-            _itemPage.FilterItems();
+            _itemPage!.FilterItems();
         }
 
         [Then(@"only adidas items are visible")]
         public void ThenOnlyAdidasItemsAreVisible()
         {
-            _itemPage.VerifyCheckBoxIsChecked();
+            Assert.IsTrue(_itemPage!.VerifyBrandCheckBoxEnabled());
         }
 
         [When(@"the user selects an item")]
         public void WhenTheUserSelectsAnItem()
         {
-            _itemPage.SelectProduct();
+            _itemPage!.SelectProduct();
         }
 
         [Then(@"the item is shown (.*)")]
         public void ThenTheItemIsShown(string name)
         {
-            _itemPage.VerifyItemName(name);
+            Assert.AreEqual(name, _itemPage!.GetProductName());
         }
 
         [When(@"the user adds an item to a cart")]
         public void WhenTheUserAddsAnItemToACart()
         {
-            _itemPage.SelectSize();
+            _itemPage!.SelectSize();
             _itemPage.AddToBag();
         }
 
         [Then(@"the item is added")]
         public void ThenTheItemIsAdded()
         {
-            _bagePage = _itemPage.ViewBag();
-            _bagePage.VerifyItemAmount();
+            _bagPage = _itemPage!.ViewBag();
+            Assert.AreEqual("1 item", _bagPage.GetItemCount());
         }
 
 

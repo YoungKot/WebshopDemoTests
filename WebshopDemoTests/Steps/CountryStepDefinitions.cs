@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NUnit.Framework;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
 using WebshopDemoTests.Pages;
@@ -36,7 +33,7 @@ namespace WebshopDemoTests.Steps
         [Then(@"current country is Latvia")]
         public void ThenCurrentCountryIsLatvia()
         {
-            _countryPage.VerifyCountryName();
+            Assert.AreEqual("Latvia", _countryPage.GetCountry());
         }
 
     }

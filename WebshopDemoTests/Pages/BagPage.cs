@@ -1,10 +1,7 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebshopDemoTests.Helpers;
 
 namespace WebshopDemoTests.Pages
 {
@@ -13,19 +10,26 @@ namespace WebshopDemoTests.Pages
         private readonly IWebDriver _driver;
 
         private readonly WebDriverWait _wait;
+
+        private readonly WaitHelper _waitHelper;
         public BagPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
+            _waitHelper = new WaitHelper(_wait);
             PageFactory.InitElements(_driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@id='SubtotalLabel']")]
-        public IWebElement ItemCount;
-        public void VerifyItemAmount()
+        internal IWebElement? ItemCount;
+        public void VerifyItemAmountDisplayed()
         {
-            _wait.Until(pred => ItemCount.Displayed);
-            Assert.AreEqual("1 item", ItemCount.Text);
+            _waitHelper.VerifyItemDisplayed(ItemCount!);
+        }
+
+        public string GetItemCount()
+        {
+            return ItemCount!.Text;
         }
     }
 }

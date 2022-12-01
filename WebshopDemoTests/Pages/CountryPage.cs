@@ -1,11 +1,8 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebshopDemoTests.Helpers;
 
 namespace WebshopDemoTests.Pages
 {
@@ -17,26 +14,33 @@ namespace WebshopDemoTests.Pages
 
         private readonly Actions actions;
 
+        private readonly WaitHelper _waitHelper;
+
         public CountryPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
             actions = new Actions(_driver);
+            _waitHelper = new WaitHelper(_wait);
             PageFactory.InitElements(_driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@class='languageRoot']")]
-        public IWebElement Country;
+        internal IWebElement? Country;
 
-        public void VerifyCountryName()
+        public void VerifyCountryDisplayed()
         {
-            _wait.Until(pred => Country.Displayed);
-            Assert.AreEqual("Latvia", Country.Text);
+            _waitHelper.VerifyItemDisplayed(Country!);
         }
 
         public void ScrollDown()
         {
-            actions.MoveToElement(Country).Perform();
+            actions.MoveToElement(Country!).Perform();
+        }
+
+        public string GetCountry()
+        {
+            return Country!.Text;
         }
     }
 }

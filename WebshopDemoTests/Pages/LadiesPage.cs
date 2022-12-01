@@ -1,9 +1,6 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebshopDemoTests.Helpers;
 
 namespace WebshopDemoTests.Pages
 {
@@ -13,24 +10,27 @@ namespace WebshopDemoTests.Pages
 
         private readonly WebDriverWait _wait;
 
+        private readonly WaitHelper _waitHelper;
+
         public LadiesPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
+            _waitHelper = new WaitHelper(_wait);
         }
 
-        private IWebElement ItemType => _driver.FindElement(By.LinkText("Leggings"));
+        internal IWebElement? ItemType => _driver.FindElement(By.LinkText("Leggings"));
 
         public ItemPage SelectItemType()
         {
-            _wait.Until(pred => ItemType.Displayed);
-            ItemType.Click();
+            _waitHelper.VerifyItemDisplayed(ItemType!);
+            ItemType!.Click();
             return new ItemPage(_driver, _wait);
         }
 
-        public void IsOnLadiesPage()
+        public bool IsOnLadiesPage()
         {
-            Assert.IsTrue(_driver.Url.Contains("ladies"));
+            return _driver.Url.Contains("ladies");
         }
     }
 }

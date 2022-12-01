@@ -1,9 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebshopDemoTests.Helpers;
 
 namespace WebshopDemoTests.Pages
 {
@@ -15,15 +12,18 @@ namespace WebshopDemoTests.Pages
 
         private readonly WebDriverWait _wait;
 
+        private readonly WaitHelper _waitHelper;
+
         public MainPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
+            _waitHelper = new WaitHelper(_wait);
         }
 
-        private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@type='search']"));
+        internal IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@type='search']"));
 
-        private IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
+        internal IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
 
         public void OpenWebpage()
         {
@@ -32,7 +32,7 @@ namespace WebshopDemoTests.Pages
 
         public ItemPage SearchText(string name)
         {
-            _wait.Until(pred => SearchBox.Enabled);
+            _waitHelper.VerifyItemEnabled(SearchBox);
             SearchBox.SendKeys(name);
             SearchBox.SendKeys(Keys.Enter);
             return new ItemPage(_driver, _wait);
@@ -40,7 +40,7 @@ namespace WebshopDemoTests.Pages
    
         public LadiesPage GetToLadiesPage()
         {
-            _wait.Until(pred => Category.Displayed);
+            _waitHelper.VerifyItemEnabled(Category);
             Category.Click();
             return new LadiesPage(_driver, _wait);
         }

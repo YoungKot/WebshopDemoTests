@@ -1,11 +1,7 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using WebshopDemoTests.Helpers;
 
 namespace WebshopDemoTests.Pages
 {
@@ -14,81 +10,92 @@ namespace WebshopDemoTests.Pages
         private readonly IWebDriver _driver;
 
         private readonly WebDriverWait _wait;
+
+        private readonly WaitHelper _waitHelper;
         public ItemPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
             _wait = wait;
+            _waitHelper = new WaitHelper(_wait);
             PageFactory.InitElements(_driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@id='lblProductName']")]
-        public IWebElement ProductName;
+        internal IWebElement? ProductName;
 
         [FindsBy(How = How.XPath, Using = "//span[@class='addToBagInner']")]
-        public IWebElement BtnAddToBag;
+        internal IWebElement? BtnAddToBag;
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'View Bag')]")]
-        public IWebElement BtnViewBag;
+        internal IWebElement? BtnViewBag;
 
         [FindsBy(How = How.XPath, Using = "//span[@data-filtername='adidas']")]
-        public IWebElement BrandCheckBox;
+        internal IWebElement? BrandCheckBox;
 
         [FindsBy(How = How.XPath, Using = "//span[@id='lblCategoryHeader']")]
-        public IWebElement PageName;
+        internal IWebElement? PageName;
 
         [FindsBy(How = How.XPath, Using = "//div[@id='productlistcontainer']/ul/li[1]")]
-        public IWebElement Item;
+        internal IWebElement? Item;
         
         [FindsBy(How = How.XPath, Using = "//ul[@class='row sizeButtons']/li[1]")]
-        public IWebElement Size;
-
-        public void VerifyItemName(string name)
-        {
-            _wait.Until(pred => ProductName.Displayed);
-            Assert.AreEqual(name, ProductName.Text);
-        }
+        internal IWebElement? Size;
 
         public void AddToBag()
         {
-            _wait.Until(pred => BtnAddToBag.Enabled);
-            BtnAddToBag.Click();
+            _waitHelper.VerifyItemEnabled(BtnAddToBag!);
+            BtnAddToBag!.Click();
+        }
+
+        public bool VerifyBrandCheckBoxEnabled()
+        {
+            return BrandCheckBox!.Enabled;
+        }
+
+        public void VerifyButtonViewBagEnabled()
+        {
+            _waitHelper.VerifyItemEnabled(BtnViewBag!);
         }
 
         public BagPage ViewBag()
         {
-            _wait.Until(pred => BtnViewBag.Displayed);
-            BtnViewBag.Click();
+            BtnViewBag!.Click();
             return new BagPage(_driver, _wait);
         }
 
         public void FilterItems()
         {
-            _wait.Until(pred => BrandCheckBox.Displayed);
-            BrandCheckBox.Click();
-            _wait.Until(pred => BrandCheckBox.Enabled);
+            _waitHelper.VerifyItemDisplayed(BrandCheckBox!);
+            BrandCheckBox!.Click();
+            _waitHelper.VerifyItemEnabled(BrandCheckBox!);
         }
 
-        public void VerifyCheckBoxIsChecked()
+        public void VerifyPageNameDisplayed()
         {
-            Assert.IsTrue(BrandCheckBox.Enabled);
+            _waitHelper.VerifyItemDisplayed(PageName!);
         }
 
-        public void VerifyPageName()
+        public string GetPageName()
         {
-            _wait.Until(pred => PageName.Displayed);
-            Assert.AreEqual("TIGHTS AND LEGGINGS", PageName.Text);
+            return PageName!.Text;
         }
 
         public void SelectProduct()
         {
-            _wait.Until(pred => Item.Displayed);
-            Item.Click();
+            _waitHelper.VerifyItemDisplayed(Item!);
+            Item!.Click();
         }
 
         public void SelectSize()
-        {         
-            _wait.Until(pred => Size.Enabled);
-            Size.Click();       
+        {
+            _waitHelper.VerifyItemEnabled(Size!);
+            Size!.Click();       
+        }
+
+        public string GetProductName()
+        {
+            _waitHelper.VerifyItemDisplayed(ProductName!);
+            return ProductName!.Text;
         }
     }
 }
