@@ -26,7 +26,7 @@ namespace WebshopDemoTests.Pages
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@class='languageRoot']")]
-        private IWebElement? Country;
+        private readonly IWebElement? Country;
 
         public void VerifyCountryDisplayed()
         {
