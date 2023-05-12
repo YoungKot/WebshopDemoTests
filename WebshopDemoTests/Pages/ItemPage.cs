@@ -25,10 +25,10 @@ namespace WebshopDemoTests.Pages
         private readonly IWebElement? ProductName;
 
         [FindsBy(How = How.XPath, Using = "//span[@class='addToBagInner']")]
-        private readonly IWebElement? BtnAddToBag;
+        private readonly IWebElement? AddToBagButton;
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'View Bag')]")]
-        private readonly IWebElement? BtnViewBag;
+        private readonly IWebElement? ViewBagButton;
 
         [FindsBy(How = How.XPath, Using = "//span[@data-filtername='adidas']")]
         private readonly IWebElement? BrandCheckBox;
@@ -44,9 +44,9 @@ namespace WebshopDemoTests.Pages
 
         public void AddToBag()
         {
-            _waitHelper.VerifyItemEnabled(BtnAddToBag!);
+            _waitHelper.VerifyItemEnabled(AddToBagButton!);
 
-            BtnAddToBag!.Click();
+            AddToBagButton!.Click();
         }
 
         public bool VerifyBrandCheckBoxEnabled()
@@ -56,12 +56,12 @@ namespace WebshopDemoTests.Pages
 
         public void VerifyButtonViewBagEnabled()
         {
-            _waitHelper.VerifyItemEnabled(BtnViewBag!);
+            _waitHelper.VerifyItemEnabled(ViewBagButton!);
         }
 
         public BagPage ViewBag()
         {
-            BtnViewBag!.Click();
+            ViewBagButton!.Click();
 
             return new BagPage(_driver, _wait);
         }
