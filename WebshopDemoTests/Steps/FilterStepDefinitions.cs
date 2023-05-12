@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
-using WebshopDemoTests.Helpers;
 using WebshopDemoTests.Pages;
 
 namespace WebshopDemoTests.Steps
@@ -10,8 +9,11 @@ namespace WebshopDemoTests.Steps
     public sealed class FilterStepDefinitions
     {
         private readonly MainPage _mainPage;
+
         private LadiesPage? _ladiesPage;
+
         private ItemPage? _itemPage;
+
         private BagPage? _bagPage;
 
         public FilterStepDefinitions(SeleniumDriver driver)
@@ -34,7 +36,9 @@ namespace WebshopDemoTests.Steps
         [Then(@"the page for ladies is shown")]
         public void ThenThePageForLadiesIsShown()
         {
-            Assert.IsTrue(_ladiesPage!.IsOnLadiesPage());
+            var isOnLadiesPage = _ladiesPage!.IsOnLadiesPage();
+            
+            isOnLadiesPage.Should().BeTrue();
         }
 
         [When(@"the user selects leggings")]
@@ -47,7 +51,10 @@ namespace WebshopDemoTests.Steps
         public void ThenTheLeggingPageIsShown()
         {
             _itemPage!.VerifyPageNameDisplayed();
-            Assert.AreEqual("TIGHTS AND LEGGINGS", _itemPage.GetPageName());
+
+            var pageName = _itemPage.GetPageName();
+
+            pageName.Should().Be("TIGHTS AND LEGGINGS");
         }
 
         [When(@"the user selects adidas brand")]
@@ -59,7 +66,9 @@ namespace WebshopDemoTests.Steps
         [Then(@"only adidas items are visible")]
         public void ThenOnlyAdidasItemsAreVisible()
         {
-            Assert.IsTrue(_itemPage!.VerifyBrandCheckBoxEnabled());
+            var isBrandCheckBoxEnabled = _itemPage!.VerifyBrandCheckBoxEnabled();
+
+            isBrandCheckBoxEnabled.Should().BeTrue();
         }
 
         [When(@"the user selects an item")]
@@ -71,13 +80,16 @@ namespace WebshopDemoTests.Steps
         [Then(@"the item is shown (.*)")]
         public void ThenTheItemIsShown(string name)
         {
-            Assert.AreEqual(name, _itemPage!.GetProductName());
+            var productName = _itemPage!.GetProductName();
+
+            name.Should().Be(productName);
         }
 
         [When(@"the user adds an item to a cart")]
         public void WhenTheUserAddsAnItemToACart()
         {
             _itemPage!.SelectSize();
+
             _itemPage.AddToBag();
         }
 
@@ -85,9 +97,10 @@ namespace WebshopDemoTests.Steps
         public void ThenTheItemIsAdded()
         {
             _bagPage = _itemPage!.ViewBag();
-            Assert.AreEqual("1 item", _bagPage.GetItemCount());
+
+            var count = _bagPage.GetItemCount();
+
+            count.Should().Be("1 item");
         }
-
-
     }
 }

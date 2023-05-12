@@ -6,6 +6,7 @@ namespace WebshopDemoTests.Helpers
     public class WaitHelper
     {
         private readonly WebDriverWait _wait;
+
         public WaitHelper(WebDriverWait wait)
         {
             _wait = wait;

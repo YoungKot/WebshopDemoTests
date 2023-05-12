@@ -12,6 +12,7 @@ namespace WebshopDemoTests.Pages
         private readonly WebDriverWait _wait;
 
         private readonly WaitHelper _waitHelper;
+
         public BagPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
@@ -21,7 +22,8 @@ namespace WebshopDemoTests.Pages
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@id='SubtotalLabel']")]
-        internal IWebElement? ItemCount;
+        private readonly IWebElement? ItemCount;
+
         public void VerifyItemAmountDisplayed()
         {
             _waitHelper.VerifyItemDisplayed(ItemCount!);

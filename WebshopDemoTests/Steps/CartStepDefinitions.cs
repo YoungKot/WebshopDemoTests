@@ -1,6 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
 using WebshopDemoTests.Pages;
@@ -11,8 +9,11 @@ namespace WebshopDemoTests.Steps
     public sealed class CartStepDefinitions
     {
         private readonly MainPage _mainPage;
+
         private ItemPage? _itemPage;
+
         private BagPage? _bagPage;
+
         public CartStepDefinitions(SeleniumDriver driver)
         {
             _mainPage = new MainPage(driver.Current, driver.Wait);
@@ -28,6 +29,7 @@ namespace WebshopDemoTests.Steps
         public void WhenUserTypesInTheSearchbar(string name)
         {
             _itemPage = _mainPage.SearchText(name);
+
             _itemPage.SelectProduct();
         }
 
@@ -35,8 +37,8 @@ namespace WebshopDemoTests.Steps
         public void ThenItemIsShown(string name)
         {
             _itemPage!.SelectSize();
-            Assert.AreEqual(name, _itemPage.GetProductName());
 
+            name.Should().Be(_itemPage.GetProductName());
         }
 
         [When(@"User clicks on the button 'Add to bag'")]
@@ -49,11 +51,14 @@ namespace WebshopDemoTests.Steps
         public void ThenItemIsAdded()
         {
             _itemPage!.VerifyButtonViewBagEnabled();
-            _bagPage = _itemPage!.ViewBag();
-            Assert.IsTrue(_itemPage!.VerifyBrandCheckBoxEnabled());
-            _bagPage.VerifyItemAmountDisplayed();
-            Assert.AreEqual("1 item", _bagPage.GetItemCount());
-        }
 
+            _bagPage = _itemPage!.ViewBag();
+
+            _itemPage!.VerifyBrandCheckBoxEnabled().Should().BeTrue();
+
+            _bagPage.VerifyItemAmountDisplayed();
+
+            _bagPage.GetItemCount().Should().Be("1 item");
+        }
     }
 }

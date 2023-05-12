@@ -21,9 +21,9 @@ namespace WebshopDemoTests.Pages
             _waitHelper = new WaitHelper(_wait);
         }
 
-        internal IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@type='search']"));
+        private IWebElement SearchBox => _driver.FindElement(By.XPath("//input[@type='search']"));
 
-        internal IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
+        private IWebElement Category => _driver.FindElement(By.LinkText("Womens"));
 
         public void OpenWebpage()
         {
@@ -33,17 +33,21 @@ namespace WebshopDemoTests.Pages
         public ItemPage SearchText(string name)
         {
             _waitHelper.VerifyItemEnabled(SearchBox);
+
             SearchBox.SendKeys(name);
+
             SearchBox.SendKeys(Keys.Enter);
+
             return new ItemPage(_driver, _wait);
         }
    
         public LadiesPage GetToLadiesPage()
         {
             _waitHelper.VerifyItemEnabled(Category);
+
             Category.Click();
+
             return new LadiesPage(_driver, _wait);
         }
-
     }
 }

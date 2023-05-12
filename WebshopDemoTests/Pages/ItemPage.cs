@@ -12,6 +12,7 @@ namespace WebshopDemoTests.Pages
         private readonly WebDriverWait _wait;
 
         private readonly WaitHelper _waitHelper;
+
         public ItemPage(IWebDriver driver, WebDriverWait wait)
         {
             _driver = driver;
@@ -21,29 +22,30 @@ namespace WebshopDemoTests.Pages
         }
 
         [FindsBy(How = How.XPath, Using = "//span[@id='lblProductName']")]
-        internal IWebElement? ProductName;
+        private readonly IWebElement? ProductName;
 
         [FindsBy(How = How.XPath, Using = "//span[@class='addToBagInner']")]
-        internal IWebElement? BtnAddToBag;
+        private readonly IWebElement? BtnAddToBag;
 
         [FindsBy(How = How.XPath, Using = "//span[contains(text(),'View Bag')]")]
-        internal IWebElement? BtnViewBag;
+        private readonly IWebElement? BtnViewBag;
 
         [FindsBy(How = How.XPath, Using = "//span[@data-filtername='adidas']")]
-        internal IWebElement? BrandCheckBox;
+        private readonly IWebElement? BrandCheckBox;
 
         [FindsBy(How = How.XPath, Using = "//span[@id='lblCategoryHeader']")]
-        internal IWebElement? PageName;
+        private readonly IWebElement? PageName;
 
         [FindsBy(How = How.XPath, Using = "//div[@id='productlistcontainer']/ul/li[1]")]
-        internal IWebElement? Item;
+        private readonly IWebElement? Item;
         
         [FindsBy(How = How.XPath, Using = "//ul[@class='row sizeButtons']/li[1]")]
-        internal IWebElement? Size;
+        private readonly IWebElement? Size;
 
         public void AddToBag()
         {
             _waitHelper.VerifyItemEnabled(BtnAddToBag!);
+
             BtnAddToBag!.Click();
         }
 
@@ -60,13 +62,16 @@ namespace WebshopDemoTests.Pages
         public BagPage ViewBag()
         {
             BtnViewBag!.Click();
+
             return new BagPage(_driver, _wait);
         }
 
         public void FilterItems()
         {
             _waitHelper.VerifyItemDisplayed(BrandCheckBox!);
+
             BrandCheckBox!.Click();
+
             _waitHelper.VerifyItemEnabled(BrandCheckBox!);
         }
 
@@ -83,18 +88,21 @@ namespace WebshopDemoTests.Pages
         public void SelectProduct()
         {
             _waitHelper.VerifyItemDisplayed(Item!);
+
             Item!.Click();
         }
 
         public void SelectSize()
         {
             _waitHelper.VerifyItemEnabled(Size!);
+
             Size!.Click();       
         }
 
         public string GetProductName()
         {
             _waitHelper.VerifyItemDisplayed(ProductName!);
+
             return ProductName!.Text;
         }
     }

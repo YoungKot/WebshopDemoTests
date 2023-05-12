@@ -19,12 +19,14 @@ namespace WebshopDemoTests.Pages
             _waitHelper = new WaitHelper(_wait);
         }
 
-        internal IWebElement? ItemType => _driver.FindElement(By.LinkText("Leggings"));
+        private IWebElement? ItemType => _driver.FindElement(By.LinkText("Leggings"));
 
         public ItemPage SelectItemType()
         {
             _waitHelper.VerifyItemDisplayed(ItemType!);
+
             ItemType!.Click();
+
             return new ItemPage(_driver, _wait);
         }
 

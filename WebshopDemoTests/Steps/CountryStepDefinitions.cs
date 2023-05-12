@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 using WebshopDemoTests.Drivers;
 using WebshopDemoTests.Pages;
@@ -9,7 +9,8 @@ namespace WebshopDemoTests.Steps
     public sealed class CountryStepDefinitions
     {
         private readonly MainPage _mainPage;
-        private CountryPage _countryPage;
+
+        private readonly CountryPage _countryPage;
 
         public CountryStepDefinitions(SeleniumDriver driver)
         {
@@ -32,8 +33,9 @@ namespace WebshopDemoTests.Steps
         [Then(@"current country is Latvia")]
         public void ThenCurrentCountryIsLatvia()
         {
-            Assert.AreEqual("Latvia", _countryPage.GetCountry());
-        }
+            var country = _countryPage.GetCountry();
 
+            country.Should().Be("Latvia");
+        }
     }
 }
